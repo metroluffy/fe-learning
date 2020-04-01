@@ -66,12 +66,20 @@ let q = new Queue(5)
 
 ### 循环队列
 
-概念不赘述，原理是将队列首尾相连，当rear移动到末尾时，会再从0开始循环，从而有效利用之前出队时留下的空间，预留一个空间来判断队列满和空即可。
-满的判断条件应为：(rear+1)%LENGTH == front
-空的判断条件为 rear == front
+概念不赘述，原理是将队列首尾相连，当rear移动到末尾时，会再从0开始循环，从而有效利用之前出队时留下的空间，额外预留一个空间来判断队列满和空即可，如此：
+
+判满条件应为：(rear+1)%LENGTH == front
+
+判空条件为 rear == front
 
 ```js
-// 具体实现，改造一下出队入队的判断条件即可
+  // 具体实现
+  // 构造函数
+  constructor (length) {
+    this.#length = length + 1 // 额外预留一个空间，这里的#length可以理解容量
+    this.#data = new Array(length)
+    this.#front = this.#rear = 0
+  }
   /**
    * 入队
    */
@@ -123,5 +131,6 @@ let q = new Queue(5)
     }
 ```
 
-leetcode也有一道设计循环队列地题，可以尝试做一做，难度不大，难在细节
-题目连接：<https://leetcode-cn.com/problems/design-circular-queue/>
+leetcode也有一道设计循环队列的题，可以尝试做一做，难度不大，难在细节
+
+题目链接：<https://leetcode-cn.com/problems/design-circular-queue/>
