@@ -76,7 +76,7 @@ let q = new Queue(5)
   // 具体实现
   // 构造函数
   constructor (length) {
-    this.#length = length + 1 // 额外预留一个空间，这里的#length可以理解容量
+    this.#length = length + 1 // 额外预留一个空间，这里的#length可以理解为容量
     this.#data = new Array(length)
     this.#front = this.#rear = 0
   }
@@ -129,6 +129,9 @@ let q = new Queue(5)
     get isFull() {
         return (this.#rear+1) % this.#length === this.#front
     }
+
+    // 以上代码为双指针方法（队首/队尾指针）
+    // 注意其中对队列容量的取余操作，是rear指针循环的关键
 ```
 
 leetcode也有一道设计循环队列的题，可以尝试做一做，难度不大，难在细节
