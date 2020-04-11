@@ -1,21 +1,10 @@
 ## N 数之和系列解题模板
 
-套路：
+解题套路：
 
 1. 直接用哈希表来找（只适合两数之和）
 
 2.  先排序，然后固定首个数字，剩下的交给双指针来找
-
-题目：
-
-- [两数之和](https://leetcode-cn.com/problems/two-sum/)
-- [三数之和](https://leetcode-cn.com/problems/3sum/)
-- [最接近的三数之和](https://leetcode-cn.com/problems/3sum-closest/)
-
-- [较小的三数之和](https://leetcode-cn.com/problems/3sum-smaller/)
-- [四数之和](https://leetcode-cn.com/problems/4sum/)
-
-套路举例：
 
 ### 哈希表解「两数之和」
 
@@ -209,7 +198,7 @@ var fourSum = function(nums, target) {
  */
 var nSum = function(nums, target) {
     const helper = (index, N, temp) => {
-	      // 如果下标越界了或者 N < 3 就没有必要在接着走下去了
+	    // 如果下标越界了或者 N < 3 就没有必要在接着走下去了
         if (index === len || N < 3) {
             return
         }
@@ -218,7 +207,7 @@ var nSum = function(nums, target) {
             if (i > index && nums[i] === nums[i - 1]) {
                 continue
             }
-	          // 如果 N > 3 的话就接着递归
+	        // 如果 N > 3 的话就接着递归
             // 并且在递归结束之后也不走下边的逻辑
             // 注意这里不能用 return
             // 否则循环便不能跑完整
@@ -227,7 +216,7 @@ var nSum = function(nums, target) {
                 continue
             }
             // 当走到这里的时候，相当于在求「三数之和」了
-		        // temp 数组在这里只是把前面递归加入的数组算进来
+		    // temp 数组在这里只是把前面递归加入的数组算进来
             let left = i + 1
             let right = len - 1
             while (left < right) {
@@ -261,4 +250,10 @@ var nSum = function(nums, target) {
 总而言之，要点是：先排序，然后把循环降低到两个之后，利用双指针来找最后两个值。
 
 
+相关题目：
 
+- [两数之和](https://leetcode-cn.com/problems/two-sum/)
+- [三数之和](https://leetcode-cn.com/problems/3sum/)
+- [最接近的三数之和](https://leetcode-cn.com/problems/3sum-closest/)
+- [较小的三数之和](https://leetcode-cn.com/problems/3sum-smaller/)
+- [四数之和](https://leetcode-cn.com/problems/4sum/)
