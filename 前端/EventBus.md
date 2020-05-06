@@ -50,3 +50,71 @@ class eventEmitter {
     }
 }
 ```
+
+#### eventBus 直接撸系列，适合手写
+```
+class Eventbus {
+    constructor () {
+        this.eventbus = {}
+    }
+    /**
+     * 事件发布
+     * @param {*} name 事件名字
+     * @param {*} slef 自身作用域
+     * @param {*} cb 回掉函数
+     */
+    $on(name,slef,cb) {
+        let tuple = [slef,cb]
+        if (Object.prototype.hasOwnProperty.call(this.eventbus, name)){
+            this.eventbus[name].push(tuple)
+        } else {
+            this.eventbus[name] = [tuple]
+        }
+    }
+    /**
+     * 触发事件
+     * @param {*} name 事件名字
+     * @param {*} data 数据
+     */
+    $emit(name,data) {
+        if (Object.prototype.hasOwnProperty.call(this.eventbus, name)) {
+            let cbs = this.eventbus[name]
+            // console.log(this.eventbus)
+            cbs.map(item=>{
+                let [slef, cb] = [item[0], item[1]]
+                cb.call(slef, data)
+            })
+        }
+    }
+
+    /**
+     * 取消事件
+     * @param {*} name 事件名字
+     * @param {*} fn 取消事件的回调
+     */
+    $off(name, fn) {
+        if (Object.prototype.hasOwnProperty.call(this.eventbus, name)) {
+            fn()
+            delete this.eventbus[name]
+        } 
+    }
+
+    /**
+     * 当前事件被触发后只执行一次
+     * @param {*} name 
+     * @param {*} slef 
+     * @param {*} fn 
+     */
+    $once(name, slef,fn) {
+        let that = this
+        function onceOn (data){
+            fn.call(slef,data)
+            console.log(that.eventbus[name])
+            that.eventbus[name] = that.eventbus[name].filter(item=>{
+                return item[0] !== slef  
+            })
+        }
+        this.$on(name, slef, onceOn)
+    }
+}
+```
