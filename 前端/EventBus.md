@@ -1,11 +1,13 @@
-### eventemitter or eventbus
-一个应用最新ES规范写的eventEmitter
+# EventBus相关的实现
+
+## EventEmitter
+
+一个应用最新ES规范写的EventEmitter
+
 ```js
 class eventEmitter {
     #events = {}
-    constructor() {
-        
-    }
+    constructor() {}
     emit(key, ...reset) {
         if(Reflect.has(this.#events, key)) {
             const funcs = Reflect.get(this.#events, key)
@@ -51,8 +53,11 @@ class eventEmitter {
 }
 ```
 
-#### eventBus 直接撸系列，适合手写
-```
+## EventBus
+
+直接撸系列，适合手写
+
+```js
 class Eventbus {
     constructor () {
         this.eventbus = {}
@@ -96,14 +101,14 @@ class Eventbus {
         if (Object.prototype.hasOwnProperty.call(this.eventbus, name)) {
             fn()
             delete this.eventbus[name]
-        } 
+        }
     }
 
     /**
      * 当前事件被触发后只执行一次
-     * @param {*} name 
-     * @param {*} slef 
-     * @param {*} fn 
+     * @param {*} name
+     * @param {*} slef
+     * @param {*} fn
      */
     $once(name, slef,fn) {
         let that = this
