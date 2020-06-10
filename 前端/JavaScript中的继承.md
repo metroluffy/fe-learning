@@ -80,6 +80,30 @@ const sub = new SubType(args1, args2)
 
 调用了两次父类的构造函数，第一次给子类的原型添加了父类的name, arr属性，第二次又给子类的构造函数添加了父类的name, arr属性，从而覆盖了子类原型中的同名参数。这种被覆盖的情况造成了性能上的浪费。
 
+### 寄生组合式继承
+
+```js
+function Parent (name) {
+    this.name = name;
+}
+
+Parent.prototype.getName = function () {
+    console.log(this.name)
+}
+
+function Child (name, age) {
+    Parent.call(this, name);
+    this.age = age;
+}
+// 继承父类原型链的属性方法
+Child.prototype = Object.create(Parent.prototype);
+
+var child1 = new Child('kevin', '18');
+
+console.log(child1);
+
+```
+
 ### 较完整的实现
 
 除以上的实现外还有其他的如寄生式、寄生组合继承，不过或多或少都有缺点，从某种角度来看，js也不提供类式继承而是原型链继承。
