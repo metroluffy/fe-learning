@@ -1,6 +1,5 @@
-# interview-prepare
-
-some preparation for interview, also to improve skills and thinking.
+# fe-learning
+Some knowledge points in the front-end field, can be used for interviews, also to improve skills and thinking.
 
 ## License
 
