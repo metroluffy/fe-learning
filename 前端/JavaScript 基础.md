@@ -126,9 +126,68 @@ const newFunc = (constructor, ...args) => {
 
 #### 继承
 
+如何优雅地实现继承，
+
+- 原型链继承
+
+  - 关键代码：`Child.prototype = new Parent()`
+
+  - 缺点
+
+    不同的 `Child` 实例的`__proto__ `会引用同一`Parent` 的实例，不同实例对链上存在的引用类型修改会互相影响，而且无法向父类的构造函数传参。
+
+- 构造函数实现继承
+
+  - 关键代码
+
+    ```javascript
+    function Child (args) {
+       // ...
+       Parent.call(this, args)
+    }
+    ```
+
+  - 优点
+
+    其一, 保证了原型链中引用类型值的独立,不再被所有实例共享；其二, 子类型创建时也能够向父类型传递参数。
+
+  - 缺点
+
+    方法都在构造函数中集成，不是好的思路。
+
+- 组合继承
+
+  使用原型链实现对原型属性和方法的继承,通过借用构造函数来实现对实例属性的继承.
+
+  ```javascript
+  function Child (args1, args2) {
+    // ...
+    this.args2 = args2
+    Parent.call(this, args1)
+  }
+  Child.prototype = new Parent()
+  Child.prototype.constrcutor = Child
+  ```
+
+  问题在于 `Child` 实例会存在 `Parent` 的实例属性。因为我们在 `Child` 构造函数中执行了 `Parent` 构造函数。同时，`Child.__proto__` 也会存在同样的 `Parent` 的实例属性，且所有 `Child` 实例的 `__proto__` 指向同一内存地址。
+
+- ES6中的继承
+
+  使用Class、extends。 Babel 将 class extends 编译成了 ES5 组合+寄生模式的继承，这是面向对象的实质。
+
+- 其他补充
+
+  JavaScript 的日期对象只能通过 JavaScript Date 作为构造函数来实例化得到，通过ES6的Class可以优雅地实现对Date的继承。
+
+同时可参见，[一文理解JavaScript中的继承](https://segmentfault.com/a/1190000015727237)
+
 #### 函数
 
-如果参数是值类型，函数内部会复制一份进行运算，但如果函数参数是一个引用类型，当在函数体内修改这个引用类型参数的某个属性值时，将会对参数进行修改。
+- 如果参数是值类型，函数内部会复制一份进行运算，但如果函数参数是一个引用类型，当在函数体内修改这个引用类型参数的某个属性值时，将会对参数进行修改。
+
+- 箭头函数
+
+  由于其没有this指针，其this是获得自父执行上下文的，不适用于构造函数的原型方法上，也不适用于需要获得 arguments 时，总而言之其就是快速函数，不需要prototype，也没有arguments，也没法new。
 
 #### 迭代器Iterator
 
