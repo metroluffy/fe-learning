@@ -22,7 +22,7 @@
 ├── 数据链路层
 └── 物理层
 ```
-more：https://zh.wikipedia.org/wiki/TCP/IP%E5%8D%8F%E8%AE%AE%E6%97%8F#TCP/IP%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B
+more：[TCP/IP参考模型](https://zh.wikipedia.org/wiki/TCP/IP%E5%8D%8F%E8%AE%AE%E6%97%8F#TCP/IP%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B)
 
 ## DNS
 - DNS查询，简单来说，DNS工作在应用层，浏览器把域名信息交给计算机中DNS应用去解析得到目标的ip地址（当然DNS也为其他应用程序提供解析服务）。其过程一般是先查询本地的DNS缓存，如果没有再请求其上一级DNS服务器做递归查询直至根服务器，通信采用UDP，优点是所需的数据包更少 。
